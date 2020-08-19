@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'style2.css' %}">
+{% endblock customcss %}
+
+{% block header %}
+<div class="alert alert-primary" role="alert">
+    Study Time Logger
+</div>
+{% endblock header %}
+
+{% block content %}
+<form action='/list/' method='POST'>{% csrf_token %}
+    {{ form.as_table }}
+    <input type='submit' value='送信'>
+</form>
+
+<p>ログイン中のユーザー: {{ user.get_username }}</p>
+    <table>
+        <tr>
+            <th>日付</th>
+            <th>科目</th>
+            <th>時間</th>
+            <th>内容</th>
+            <th>ユーザー</th>
+        </tr>
+        {% for s in study %}
+        <tr>
+            <td>{{ s.date }}</td>
+            <td>{{ s.get_subject_display }}</td>
+            <td>{{ s.study_time }}</td>
+            <td>{{ s.content }}</td>
+            <td>{{ s.author }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{% url 'mypage' %}" class="btn btn-success" role="button" aria-pressed="true">マイページ</a>
+    <a href="{% url 'logout' %}" class="btn btn-danger" role="button" aria-pressed="true">ログアウト</a>
+    
+{% endblock content %}

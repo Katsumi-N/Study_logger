@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'style2.css' %}">
+{% endblock customcss %}
+
+{% block header %}
+<div class="alert alert-primary" role="alert">
+    MyPage
+</div>
+{% endblock header %}
+
+{% block content %}
+    <form action="/mypage/" method="get">
+        <input name="rival" value="{{ request.GET.rival }}" type="text">
+        <button type="submit">ライバルの検索</button>
+    </form>
+
+    <table class='me'>
+        <tr>
+            <th>日付</th>
+            <th>科目</th>
+            <th>時間</th>
+            <th>内容</th>
+            <th>ユーザー</th>
+        </tr>
+        {% for s in study %}
+        <tr>
+            <td>{{ s.date }}</td>
+            <td>{{ s.get_subject_display }}</td>
+            <td>{{ s.study_time }}</td>
+            <td>{{ s.content }}</td>
+            <td>{{ s.author }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <table class='rival'> 
+        <tr>
+            <th>日付</th>
+            <th>科目</th>
+            <th>時間</th>
+            <th>内容</th>
+            <th>ユーザー</th>
+        </tr>
+        {% for ri in rival %}
+        <tr>
+            <td>{{ ri.date }}</td>
+            <td>{{ ri.get_subject_display }}</td>
+            <td>{{ ri.study_time }}</td>
+            <td>{{ ri.content }}</td>
+            <td>{{ ri.author }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p>自分の今月の勉強時間</p>
+    <p><img src="/media/studytime_me.svg" width=30%></p>
+        
+
+    <a href="{% url 'logout' %}" button type="button" class="btn btn-danger">ログアウト</button>
+
+{% endblock content %}

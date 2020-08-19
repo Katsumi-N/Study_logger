@@ -1,0 +1,21 @@
+table {
+  table-layout: fixed;
+  display: flex     
+  border-collapse: collapse;
+  width: 1000px;
+}
+
+th{
+  color:#005ab3;
+
+}
+td{
+  border-bottom:1px dashed #999;
+}
+th,tr:last-child td{
+  border-bottom:2px solid #005ab3;
+}
+td,th{
+  padding:10px ;
+}
+
